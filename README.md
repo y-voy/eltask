@@ -1,24 +1,29 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+モデル名、カラム名、データ型を以下に記載
 
-Things you may want to cover:
+**Task**
 
-* Ruby version
+* task_id : _integer_
+* name : _string_
+* description : _text_
+* deadline : _datetime_
+* priority : _string_
+* status : _string_
 
-* System dependencies
+**User**
 
-* Configuration
+* user_id : _integer_
+* name : _string_
+* email : _string_
+* password_digest : _string_
 
-* Database creation
+**Label**
 
-* Database initialization
+* label_id : _integer_
+* name : _string_
 
-* How to run the test suite
+**Relation**
 
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+* task_id(FK) : _integer_
+* label_id(FK) : _integer_
