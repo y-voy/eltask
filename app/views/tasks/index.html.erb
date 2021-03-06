@@ -1,3 +1,4 @@
+<p><%= notice %></p>
 <table>
   <tr>
     <th>タスク名</th>
@@ -8,6 +9,8 @@
     <td><%= task.name %></td>
     <td><%= task.description %></td>
     <td><%= link_to '詳細', task_path(task.id) %></td>
+    <td><%= link_to '編集', edit_task_path(task.id) %></td>
   </tr>
   <% end %>
 </table>
+<%= link_to '新規作成', new_task_path %>
