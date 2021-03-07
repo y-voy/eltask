@@ -2,7 +2,7 @@ lock '3.6.0'
 
 set :application, 'eltask'
 set :repo_url, 'https://github.com/y-voy/eltask'
-set :branch, ENV['BRANCH'] || 'master'
+set :branch, ENV['BRANCH'] || 'step2'
 set :deploy_to, '/var/www/eltask'
 set :linked_files, %w{.env config/secrets.yml}
 set :linked_dirs, %w{log tmp/pids tmp/cache tmp/sockets public/uploads}
