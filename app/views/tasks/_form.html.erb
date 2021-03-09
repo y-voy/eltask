@@ -1,7 +1,7 @@
 <%= form_with(model: @task, local: true) do |form| %>
   <% if @task.errors.any? %>
     <div id="error_explanation">
-      <h2><%= @task.errors.count %>件のエラーがあります。</h2>
+      <h2><%= @task.errors.count %><%= t('activerecord.errors.messages.error_counts') %></h2>
       <ul>
       <% @task.errors.full_messages.each do |msg| %>
         <li><%= msg %></li>
@@ -19,4 +19,4 @@
   </div>
   <%= form.submit %>
 <% end %>
-<%= link_to '一覧に戻る', tasks_path %>
+<%= link_to t('view.to_index_view'), tasks_path %>
