@@ -42,6 +42,14 @@ class TasksController < ApplicationController
     redirect_to tasks_path, notice: "削除しました！"
   end
 
+  def search
+    if params[:name].present?
+      @tasks = Task.where('name LIKE ?', "%#{params[:name]}%")
+    else
+      @tasks = Task.none
+    end
+  end
+
   private
 
   def task_params

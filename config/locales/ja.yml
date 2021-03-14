@@ -209,6 +209,7 @@ ja:
     index_view: タスク一覧
     detail_view: 詳細画面
     edit_view: 編集画面
+    search_view: 検索結果
     to_index_view: 一覧に戻る
     new_task: 新規作成
     detail: 詳細
