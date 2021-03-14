@@ -3,6 +3,7 @@
 
 <%= form_with scope: :task, url: tasks_path, method: :get, local: true do |f| %>
   <%= f.text_field :name %>
+  <%= f.select :status, Task.statuses.keys, {} %>
   <%= f.submit :search %>
 <% end %>
 

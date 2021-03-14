@@ -4,7 +4,15 @@ class TasksController < ApplicationController
 
   def index
     if params[:task].present?
-      @tasks = Task.where('name LIKE ?', "%#{params[:task][:name]}%")
+      if params[:task][:name].present? && params[:task][:status].present?
+        status = params[:task][:status]
+        @tasks = Task.where('name LIKE ?', "%#{params[:task][:name]}%").where(status: Task.statuses[status])
+      elsif params[:task][:name].present?
+        @tasks = Task.where('name LIKE ?', "%#{params[:task][:name]}%")
+      elsif params[:task][:status].present?
+        status = params[:task][:status]
+        @tasks = Task.where(status: Task.statuses[status])
+      end
     else
       if params[:sort_expired]
         @tasks = Task.all.order(expired_at: :asc)
@@ -45,14 +53,6 @@ class TasksController < ApplicationController
     @task.destroy
     redirect_to tasks_path, notice: "削除しました！"
   end
-
-  # def search
-  #   if params[:name].present?
-  #     @tasks = Task.where('name LIKE ?', "%#{params[:name]}%")
-  #   else
-  #     @tasks = Task.none
-  #   end
-  # end
 
   private
 
