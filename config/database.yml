@@ -13,7 +13,6 @@ test:
 
 production:
   <<: *default
-  database: <%= ENV['ELTASK_DATABASE_NAME'] %>
-  username: <%= ENV['ELTASK_DATABASE_USERNAME'] %>
+  database: eltask_production
+  username: eltask
   password: <%= ENV['ELTASK_DATABASE_PASSWORD'] %>
-  # host: <%= ENV['ELTASK_DATABASE_HOST'] %>
