@@ -3,10 +3,14 @@ class TasksController < ApplicationController
   before_action :set_task, only: [:show, :edit, :update, :destroy]
 
   def index
-    if params[:sort_expired]
-      @tasks = Task.all.order(expired_at: :asc)
+    if params[:task].present?
+      @tasks = Task.where('name LIKE ?', "%#{params[:task][:name]}%")
     else
-      @tasks = Task.all.order(created_at: :desc)
+      if params[:sort_expired]
+        @tasks = Task.all.order(expired_at: :asc)
+      else
+        @tasks = Task.all.order(created_at: :desc)
+      end
     end
   end
 
@@ -42,13 +46,13 @@ class TasksController < ApplicationController
     redirect_to tasks_path, notice: "削除しました！"
   end
 
-  def search
-    if params[:name].present?
-      @tasks = Task.where('name LIKE ?', "%#{params[:name]}%")
-    else
-      @tasks = Task.none
-    end
-  end
+  # def search
+  #   if params[:name].present?
+  #     @tasks = Task.where('name LIKE ?', "%#{params[:name]}%")
+  #   else
+  #     @tasks = Task.none
+  #   end
+  # end
 
   private
 
