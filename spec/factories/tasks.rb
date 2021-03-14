@@ -8,6 +8,7 @@ FactoryBot.define do
   factory :new_task, class: Task do
     name { "new_test_name" }
     description { "new_test_description" }
+    expired_at { "2021-04-01 00:00:00" }
   end
 
   factory :second_task, class: Task do

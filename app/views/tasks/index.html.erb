@@ -17,6 +17,6 @@
   </tr>
   <% end %>
 </table>
-<p><%= link_to '終了期限でソートする', tasks_path(sort_expired: 'true') %></p>
-<p><%= link_to '登録順でソートする', tasks_path %></p>
+<p id="sort_expired"><%= link_to t('view.sorted_by_expired_at'), tasks_path(sort_expired: 'true') %></p>
+<p><%= link_to t('view.sorted_by_created_at'), tasks_path %></p>
 <p><%= link_to t('view.new_task'), new_task_path %></p>
