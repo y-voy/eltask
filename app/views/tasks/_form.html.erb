@@ -21,6 +21,10 @@
     <%= form.label :expired_at %>
     <%= form.datetime_field :expired_at %>
   </div>
+  <div class="task_description">
+    <%= form.label :status %>
+    <%= form.select :status, [["未着手", "未着手"], ["着手中", "着手中"], ["完了", "完了"]] %>
+  </div>
   <%= form.submit %>
 <% end %>
 <%= link_to t('view.to_index_view'), tasks_path %>
