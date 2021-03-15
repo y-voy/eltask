@@ -12,6 +12,8 @@ class TasksController < ApplicationController
       elsif params[:task][:status].present?
         status = params[:task][:status]
         @tasks = Task.where(status: Task.statuses[status])
+      else
+        @tasks = Task.all.order(created_at: :desc)
       end
     else
       if params[:sort_expired]
