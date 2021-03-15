@@ -2,9 +2,9 @@ require 'rails_helper'
 
 RSpec.describe 'タスク管理機能', type: :system do
 
-  let!(:task) { FactoryBot.create(:task, created_at: Time.current + 1.days, expired_at: Time.current + 3.days) }
-  let!(:second_task) { FactoryBot.create(:second_task, created_at: Time.current + 2.days, expired_at: Time.current + 2.days) }
-  let!(:third_task) { FactoryBot.create(:third_task, created_at: Time.current, expired_at: Time.current + 1.days) }
+  let!(:task) { FactoryBot.create(:task, created_at: Time.current + 1.days, expired_at: Time.current + 3.days, priority: 1) }
+  let!(:second_task) { FactoryBot.create(:second_task, created_at: Time.current + 2.days, expired_at: Time.current + 2.days, priority: 3) }
+  let!(:third_task) { FactoryBot.create(:third_task, created_at: Time.current, expired_at: Time.current + 1.days, priority: 2) }
 
   describe '新規作成機能' do
     before do
@@ -39,7 +39,7 @@ RSpec.describe 'タスク管理機能', type: :system do
 
     context 'タスクが作成日時の降順に並んでいる場合' do
       it '新しいタスクが一番上に表示される' do
-        all('tr td')[4].click_link '詳細'
+        all('tr td')[5].click_link '詳細'
         expect(page).to have_content 'second_test_name'
       end
     end
@@ -49,10 +49,22 @@ RSpec.describe 'タスク管理機能', type: :system do
         within '#sort_expired' do
           click_link '終了期限でソートする'
         end
-        all('tr td')[4].click_link '詳細'
+        all('tr td')[5].click_link '詳細'
       end
       it '終了期限が一番手前の日付が一番上に表示される' do
         expect(page).to have_content 'third_test_name'
+      end
+    end
+
+    context '優先順位でソートするボタンが押された場合' do
+      before do
+        within '#sort_priority' do
+          click_link '優先順位でソートする'
+        end
+        all('tr td')[5].click_link '詳細'
+      end
+      it '優先順位が高いタスクが一番上に表示される' do
+        expect(page).to have_content 'second_test_name'
       end
     end
 

@@ -5,6 +5,7 @@ FactoryBot.define do
     description { "test_description" }
     expired_at { "2021-04-01 00:00:00" }
     status { "未着手" }
+    priority { "中" }
   end
 
   factory :second_task, class: Task do
@@ -12,6 +13,7 @@ FactoryBot.define do
     description { "second_test_description" }
     expired_at { "2021-04-01 00:00:00" }
     status { "着手中" }
+    priority { "高" }
   end
 
   factory :third_task, class: Task do
@@ -19,6 +21,7 @@ FactoryBot.define do
     description { "third_test_description" }
     expired_at { "2021-04-01 00:00:00" }
     status { "未着手" }
+    priority { "低" }
   end
 
   factory :new_task, class: Task do
@@ -26,6 +29,7 @@ FactoryBot.define do
     description { "new_test_description" }
     expired_at { "2021-04-01 00:00:00" }
     status { "未着手" }
+    priority { "中" }
   end
 
 end
