@@ -39,7 +39,7 @@ RSpec.describe 'タスク管理機能', type: :system do
 
     context 'タスクが作成日時の降順に並んでいる場合' do
       it '新しいタスクが一番上に表示される' do
-        all('tr td')[3].click_link '詳細'
+        all('tr td')[4].click_link '詳細'
         expect(page).to have_content 'second_test_name'
       end
     end
@@ -49,9 +49,9 @@ RSpec.describe 'タスク管理機能', type: :system do
         within '#sort_expired' do
           click_link '終了期限でソートする'
         end
+        all('tr td')[4].click_link '詳細'
       end
       it '終了期限が一番手前の日付が一番上に表示される' do
-        all('tr td')[3].click_link '詳細'
         expect(page).to have_content 'third_test_name'
       end
     end
@@ -67,6 +67,38 @@ RSpec.describe 'タスク管理機能', type: :system do
          expect(page).to have_content 'test_name'
        end
      end
+  end
+
+  describe '検索機能' do
+    before do
+     FactoryBot.create(:second_task, name: "foo")
+     FactoryBot.create(:task, name: "sample", status: "完了")
+   end
+    context 'タイトルであいまい検索をした場合' do
+      it "検索キーワードを含むタスクで絞り込まれる" do
+        visit tasks_path
+        fill_in "name_search_feild", with: "foo"
+        click_button "検索"
+        expect(page).to have_content 'foo'
+      end
+    end
+    context 'ステータス検索をした場合' do
+      it "ステータスに完全一致するタスクが絞り込まれる" do
+        visit tasks_path
+        select(value = "完了", from: "status_search_feild")
+        click_button "検索"
+        expect(page).to have_content 'sample'
+      end
+    end
+    context 'タイトルのあいまい検索とステータス検索をした場合' do
+      it "検索キーワードをタイトルに含み、かつステータスに完全一致するタスク絞り込まれる" do
+        visit tasks_path
+        fill_in "name_search_feild", with: "foo"
+        select(value = "着手中", from: "status_search_feild")
+        click_button "検索"
+        expect(page).to have_content 'foo'
+      end
+    end
   end
 
 end

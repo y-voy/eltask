@@ -2,9 +2,9 @@
 <p><%= notice %></p>
 
 <%= form_with scope: :task, url: tasks_path, method: :get, local: true do |f| %>
-  <%= f.text_field :name %>
-  <%= f.select :status, Task.statuses.keys, {} %>
-  <%= f.submit :search %>
+  <%= f.text_field :name, id: "name_search_feild" %>
+  <%= f.select :status, Task.statuses.keys, {}, id: "status_search_feild"%>
+  <%= f.submit "検索" %>
 <% end %>
 
 <table>
@@ -26,6 +26,6 @@
   </tr>
   <% end %>
 </table>
-<p id="sort_expired"><%= link_to t('view.sorted_by_expired_at'), tasks_path(sort_expired: 'true') %></p>
+<p id="sort_expired"><%= link_to '終了期限でソートする', tasks_path(sort_expired: 'true') %></p>
 <p><%= link_to t('view.sorted_by_created_at'), tasks_path %></p>
 <p><%= link_to t('view.new_task'), new_task_path %></p>
