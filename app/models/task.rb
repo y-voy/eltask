@@ -10,6 +10,13 @@ class Task < ApplicationRecord
     完了: 3
   }
 
+  enum priority: {
+    "--": 0,
+    低: 1,
+    中: 2,
+    高: 3
+  }
+
   scope :name_search, -> (term) {
     where('name LIKE ?', "%#{term}%")
   }
