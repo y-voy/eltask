@@ -3,6 +3,8 @@ class Task < ApplicationRecord
   validates :description, presence: true, length: { maximum: 300 }
   validates :expired_at, presence: true
 
+  paginates_per 10
+
   enum status: {
     "": 0,
     未着手: 1,

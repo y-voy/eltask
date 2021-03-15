@@ -28,6 +28,8 @@
   </tr>
   <% end %>
 </table>
+<%= paginate @tasks %>
+<%= page_entries_info @tasks %>
 <p id="sort_expired"><%= link_to '終了期限でソートする', tasks_path(sort_expired: 'true') %></p>
 <p id="sort_priority"><%= link_to '優先順位でソートする', tasks_path(sort_priority: 'true') %></p>
 <p><%= link_to t('view.sorted_by_created_at'), tasks_path %></p>
