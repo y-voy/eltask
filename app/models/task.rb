@@ -9,4 +9,13 @@ class Task < ApplicationRecord
     着手中: 2,
     完了: 3
   }
+
+  scope :name_search, -> (term) {
+    where('name LIKE ?', "%#{term}%")
+  }
+
+  scope :status_search, -> (term) {
+    where('status = ?', "#{term}")
+  }
+
 end
