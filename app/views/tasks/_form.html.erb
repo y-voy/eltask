@@ -9,26 +9,28 @@
       </ul>
     </div>
   <% end %>
-  <div class="task_name">
-    <%= form.label :name %>
-    <%= form.text_field :name %>
-  </div>
-  <div class="task_description">
-    <%= form.label :description %>
-    <%= form.text_field :description %>
-  </div>
-  <div class="task_description">
-    <%= form.label :expired_at %>
-    <%= form.datetime_field :expired_at %>
-  </div>
-  <div class="task_description">
-    <%= form.label :status %>
-    <%= form.select :status, Task.statuses.keys, {} %>
-  </div>
-  <div class="task_description">
-    <%= form.label :priority %>
-    <%= form.select :priority, Task.priorities.keys, {} %>
-  </div>
-  <%= form.submit %>
+  <div class="input-group input_new">
+    <div class="task_name">
+      <%= form.label :name, class: "input-form" %>
+      <%= form.text_field :name, class: "form-control" %>
+    </div>
+    <div class="input task_description">
+      <%= form.label :description, class: "input-form" %>
+      <%= form.text_area :description, class: "form-control" %>
+    </div>
+    <div class="input task_expired_at">
+      <%= form.label :expired_at, class: "input-form" %>
+      <%= form.datetime_field :expired_at, class: "form-control" %>
+    </div>
+    <div class="input task_status">
+      <%= form.label :status, class: "input-form" %>
+      <%= form.select :status, Task.statuses.keys, {}, class: "form-control" %>
+    </div>
+    <div class="input task_priority">
+      <%= form.label :priority, class: "input-form" %>
+      <%= form.select :priority, Task.priorities.keys, {}, class: "form-control" %>
+    </div>
+  <%= form.submit class: "input_btn btn btn-primary" %>
 <% end %>
-<%= link_to t('view.to_index_view'), tasks_path %>
+<br>
+<%= link_to t('view.to_index_view'), tasks_path, class: "input_btn btn btn-default" %>
