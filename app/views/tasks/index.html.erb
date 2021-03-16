@@ -21,12 +21,12 @@
     <th><%= t('activerecord.attributes.task.description') %></th>
     <th id="sort_created_at"><%= link_to t('activerecord.attributes.task.created_at'), tasks_path %></th>
     <th id="sort_expired"><%= link_to t('activerecord.attributes.task.expired_at'), tasks_path(sort_expired: 'true')  %></th>
-    <th class="index_status" id="sort_status"><%= link_to t('activerecord.attributes.task.status'), tasks_path(sort_priority: 'true') %></th>
+    <th class="index_status" id="sort_status"><%= link_to t('activerecord.attributes.task.status'), tasks_path(sort_status: 'true') %></th>
     <th class="index_priority" id="sort_priority"><%= link_to t('activerecord.attributes.task.priority'), tasks_path(sort_priority: 'true') %></th>
   </tr>
 <% @tasks.each do |task| %>
   <tr>
-    <td><%= task.name.truncate(15) %></td>
+    <td><%= task.name.truncate(20) %></td>
     <td><%= task.description.truncate(30) %></td>
     <td><%= task.created_at.strftime('%Y-%m-%d %H:%M') %></td>
     <td><%= task.expired_at.strftime('%Y-%m-%d %H:%M') %></td>

@@ -39,7 +39,7 @@ RSpec.describe 'タスク管理機能', type: :system do
 
     context 'タスクが作成日時の降順に並んでいる場合' do
       it '新しいタスクが一番上に表示される' do
-        all('tr td')[5].click_link '詳細'
+        all('tr td')[6].click_link '詳細'
         expect(page).to have_content 'second_test_name'
       end
     end
@@ -47,11 +47,11 @@ RSpec.describe 'タスク管理機能', type: :system do
     context '終了期限でソートするボタンが押された場合' do
       before do
         within '#sort_expired' do
-          click_link '終了期限でソートする'
+          click_link '終了期限'
         end
-        all('tr td')[5].click_link '詳細'
       end
       it '終了期限が一番手前の日付が一番上に表示される' do
+        all('tr td')[6].click_link '詳細'
         expect(page).to have_content 'third_test_name'
       end
     end
@@ -59,11 +59,11 @@ RSpec.describe 'タスク管理機能', type: :system do
     context '優先順位でソートするボタンが押された場合' do
       before do
         within '#sort_priority' do
-          click_link '優先順位でソートする'
+          click_link '優先順位'
         end
-        all('tr td')[5].click_link '詳細'
       end
       it '優先順位が高いタスクが一番上に表示される' do
+        all('tr td')[6].click_link '詳細'
         expect(page).to have_content 'second_test_name'
       end
     end
