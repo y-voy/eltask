@@ -215,5 +215,9 @@ ja:
     detail: 詳細
     edit: 編集
     destroy: 削除
+    search: 検索
+    search_placeholder: 任意のワードで検索
     sorted_by_expired_at: 終了期限でソートする
     sorted_by_created_at: 登録順でソートする
+    sorted_by_priority: 優先順位でソートする
+    sorted_by_status: ステータスでソートする

@@ -20,6 +20,8 @@ class TasksController < ApplicationController
         @tasks = Task.all.order(expired_at: :asc).page(params[:page])
       elsif params[:sort_priority]
         @tasks = Task.all.order(priority: :desc).page(params[:page])
+      elsif params[:sort_status]
+        @tasks = Task.all.order(status: :asc).page(params[:page])
       else
         @tasks = Task.all.order(created_at: :desc).page(params[:page])
       end
