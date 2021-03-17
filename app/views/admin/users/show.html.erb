@@ -1,0 +1,24 @@
+<h1>ユーザーの詳細</h1>
+
+<%= link_to '一覧', admin_users_path  %>
+
+<table>
+  <tr>
+    <th><%= User.human_attribute_name(:name) %></th>
+    <td><%= link_to @user.name, [:admin, @user] %></td>
+  </tr>
+  <tr>
+    <th><%= User.human_attribute_name(:email) %></th>
+    <td><%= @user.email %></td>
+  </tr>
+  <tr>
+    <th><%= User.human_attribute_name(:admin) %></th>
+    <td><%= @user.admin? ? 'あり' : 'なし' %></td>
+  </tr>
+  <tr>
+    <th><%= User.human_attribute_name(:created_at) %></th>
+    <td><%= @user.created_at %></td>
+  </tr>
+</table>
+<%= link_to '編集', edit_admin_user_path(@user) %>
+<%= link_to '削除', [:admin, @user], method: :delete, data: { confirm: "ユーザー「#{@user.name}」を削除します。よろしいですか？"} %>
