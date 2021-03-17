@@ -1,18 +1,43 @@
-<h2><%= t('view.index_view') %></h2>
 <p><%= notice %></p>
-<table>
+
+<%= link_to t('view.new_task'), new_task_path, class: "btn btn-primary new_task_btn" %>
+<%= form_with scope: :task, url: tasks_path, method: :get, local: true do |f| %>
+<div class="search_flame">
+  <div class="input-group">
+    <%= f.text_field :name, class: "form-control", id: "name_search_feild", placeholder: t('view.search_placeholder') %>
+  </div>
+  <div class="dropdown" role="group">
+    <%= f.select :status, Task.statuses.keys, {}, class: "btn btn-default dropdown-toggle", id: "status_search_feild" %>
+  </div>
+  <%= f.submit t('view.search'), class: "btn btn-default search_btn", id: "search_btn" %>
+  <% end %>
+</div>
+
+<div class="panel panel-default">
+  <div class="panel-heading"><%= link_to t('view.index_view'), tasks_path %></div>
+<table class="table">
   <tr>
     <th><%= t('activerecord.attributes.task.name') %></th>
     <th><%= t('activerecord.attributes.task.description') %></th>
+    <th id="sort_created_at"><%= link_to t('activerecord.attributes.task.created_at'), tasks_path %></th>
+    <th id="sort_expired"><%= link_to t('activerecord.attributes.task.expired_at'), tasks_path(sort_expired: 'true')  %></th>
+    <th class="index_status" id="sort_status"><%= link_to t('activerecord.attributes.task.status'), tasks_path(sort_status: 'true') %></th>
+    <th class="index_priority" id="sort_priority"><%= link_to t('activerecord.attributes.task.priority'), tasks_path(sort_priority: 'true') %></th>
   </tr>
 <% @tasks.each do |task| %>
   <tr>
-    <td><%= task.name %></td>
-    <td><%= task.description %></td>
-    <td><%= link_to t('view.detail'), task_path(task.id) %></td>
-    <td><%= link_to t('view.edit'), edit_task_path(task.id) %></td>
-    <td><%= link_to t('view.destroy'), task_path(task.id), method: :delete, data: { confirm: "本当に削除しますか？" } %></td>
+    <td><%= task.name.truncate(20) %></td>
+    <td><%= task.description.truncate(30) %></td>
+    <td><%= task.created_at.strftime('%Y-%m-%d %H:%M') %></td>
+    <td><%= task.expired_at.strftime('%Y-%m-%d %H:%M') %></td>
+    <td class="index_status"><%= task.status %></td>
+    <td class="index_priority"><%= task.priority %></td>
+    <td><%= link_to t('view.detail'), task_path(task.id), class: "btn-sm btn-primary" %></td>
+    <td><%= link_to t('view.edit'), edit_task_path(task.id), class: "btn-sm btn-success" %></td>
+    <td><%= link_to t('view.destroy'), task_path(task.id), method: :delete, data: { confirm: "本当に削除しますか？" }, class: "btn-sm btn-danger" %></td>
   </tr>
   <% end %>
 </table>
-<%= link_to t('view.new_task'), new_task_path %>
+</div>
+<p class="pagination"><%= paginate @tasks, class: "pagination" %></p>
+<p class="pagination"><%= page_entries_info @tasks, class: "pagination" %></p>

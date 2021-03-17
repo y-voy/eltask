@@ -3,7 +3,29 @@ class TasksController < ApplicationController
   before_action :set_task, only: [:show, :edit, :update, :destroy]
 
   def index
-    @tasks = Task.all.order(created_at: :desc)
+    if params[:task].present?
+      if params[:task][:name].present? && params[:task][:status].present?
+        status = params[:task][:status]
+        @tasks = Task.where('name LIKE ?', "%#{params[:task][:name]}%").where(status: Task.statuses[status]).page(params[:page])
+      elsif params[:task][:name].present?
+        @tasks = Task.where('name LIKE ?', "%#{params[:task][:name]}%").page(params[:page])
+      elsif params[:task][:status].present?
+        status = params[:task][:status]
+        @tasks = Task.where(status: Task.statuses[status]).page(params[:page])
+      else
+        @tasks = Task.all.order(created_at: :desc).page(params[:page])
+      end
+    else
+      if params[:sort_expired]
+        @tasks = Task.all.order(expired_at: :asc).page(params[:page])
+      elsif params[:sort_priority]
+        @tasks = Task.all.order(priority: :desc).page(params[:page])
+      elsif params[:sort_status]
+        @tasks = Task.all.order(status: :asc).page(params[:page])
+      else
+        @tasks = Task.all.order(created_at: :desc).page(params[:page])
+      end
+    end
   end
 
   def new
@@ -41,7 +63,7 @@ class TasksController < ApplicationController
   private
 
   def task_params
-    params.require(:task).permit(:name, :description)
+    params.require(:task).permit(:name, :description, :expired_at, :status, :priority)
   end
 
   def set_task

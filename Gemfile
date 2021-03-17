@@ -8,6 +8,8 @@ gem 'coffee-rails', '~> 4.2'
 gem 'dotenv-rails'
 gem 'ed25519'
 gem 'jbuilder', '~> 2.5'
+gem 'kaminari', '~> 0.17.0'
+gem 'kaminari-bootstrap', '~> 3.0.1'
 gem 'mini_racer', platforms: :ruby
 gem 'pg', '>= 0.18', '< 2.0'
 gem 'puma', '~> 3.11'

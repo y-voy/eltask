@@ -2,9 +2,9 @@ require 'rails_helper'
 
 RSpec.describe 'タスク管理機能', type: :system do
 
-  let!(:task) { FactoryBot.create(:task, created_at: Time.current + 1.days) }
-  let!(:second_task) { FactoryBot.create(:second_task, created_at: Time.current + 2.days) }
-  let!(:third_task) { FactoryBot.create(:third_task, created_at: Time.current) }
+  let!(:task) { FactoryBot.create(:task, created_at: Time.current + 1.days, expired_at: Time.current + 3.days, priority: 1) }
+  let!(:second_task) { FactoryBot.create(:second_task, created_at: Time.current + 2.days, expired_at: Time.current + 2.days, priority: 3) }
+  let!(:third_task) { FactoryBot.create(:third_task, created_at: Time.current, expired_at: Time.current + 1.days, priority: 2) }
 
   describe '新規作成機能' do
     before do
@@ -12,6 +12,7 @@ RSpec.describe 'タスク管理機能', type: :system do
       task = FactoryBot.create(:new_task)
       fill_in 'タスク名', with: task.name
       fill_in '詳細', with: task.description
+      fill_in '終了期限', with: task.expired_at
       click_button '登録する'
     end
 
@@ -38,10 +39,35 @@ RSpec.describe 'タスク管理機能', type: :system do
 
     context 'タスクが作成日時の降順に並んでいる場合' do
       it '新しいタスクが一番上に表示される' do
-        all('tr td')[2].click_link '詳細'
+        all('tr td')[6].click_link '詳細'
         expect(page).to have_content 'second_test_name'
       end
     end
+
+    context '終了期限でソートするボタンが押された場合' do
+      before do
+        within '#sort_expired' do
+          click_link '終了期限'
+        end
+      end
+      it '終了期限が一番手前の日付が一番上に表示される' do
+        all('tr td')[6].click_link '詳細'
+        expect(page).to have_content 'third_test_name'
+      end
+    end
+
+    context '優先順位でソートするボタンが押された場合' do
+      before do
+        within '#sort_priority' do
+          click_link '優先順位'
+        end
+      end
+      it '優先順位が高いタスクが一番上に表示される' do
+        all('tr td')[6].click_link '詳細'
+        expect(page).to have_content 'second_test_name'
+      end
+    end
+
   end
 
   describe '詳細表示機能' do
@@ -53,6 +79,38 @@ RSpec.describe 'タスク管理機能', type: :system do
          expect(page).to have_content 'test_name'
        end
      end
+  end
+
+  describe '検索機能' do
+    before do
+     FactoryBot.create(:second_task, name: "foo")
+     FactoryBot.create(:task, name: "sample", status: "完了")
+   end
+    context 'タイトルであいまい検索をした場合' do
+      it "検索キーワードを含むタスクで絞り込まれる" do
+        visit tasks_path
+        fill_in "name_search_feild", with: "foo"
+        click_button "検索"
+        expect(page).to have_content 'foo'
+      end
+    end
+    context 'ステータス検索をした場合' do
+      it "ステータスに完全一致するタスクが絞り込まれる" do
+        visit tasks_path
+        select(value = "完了", from: "status_search_feild")
+        click_button "検索"
+        expect(page).to have_content 'sample'
+      end
+    end
+    context 'タイトルのあいまい検索とステータス検索をした場合' do
+      it "検索キーワードをタイトルに含み、かつステータスに完全一致するタスク絞り込まれる" do
+        visit tasks_path
+        fill_in "name_search_feild", with: "foo"
+        select(value = "着手中", from: "status_search_feild")
+        click_button "検索"
+        expect(page).to have_content 'foo'
+      end
+    end
   end
 
 end

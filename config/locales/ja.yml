@@ -209,8 +209,15 @@ ja:
     index_view: タスク一覧
     detail_view: 詳細画面
     edit_view: 編集画面
+    search_view: 検索結果
     to_index_view: 一覧に戻る
     new_task: 新規作成
     detail: 詳細
     edit: 編集
     destroy: 削除
+    search: 検索
+    search_placeholder: タスク名で検索
+    sorted_by_expired_at: 終了期限でソートする
+    sorted_by_created_at: 登録順でソートする
+    sorted_by_priority: 優先順位でソートする
+    sorted_by_status: ステータスでソートする

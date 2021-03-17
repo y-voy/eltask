@@ -7,6 +7,10 @@ ja:
       task:
         name: タスク名
         description: 詳細
+        created_at: 登録日時
+        expired_at: 終了期限
+        status: ステータス
+        priority: 優先順位
       user:
         title: タイトル
         name: 名前

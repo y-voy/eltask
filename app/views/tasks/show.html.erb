@@ -1,5 +1,27 @@
-<h2><%= t('view.detail_view') %></h2>
+<div class="col-md-4"></div>
+<div class="col-md-4">
+  <div class="row">
+<h4><%= t('view.detail_view') %></h4>
 <p><%= notice %></p>
-<p><%= t('activerecord.attributes.task.name') %>: <%= @task.name %></p>
-<p><%= t('activerecord.attributes.task.description') %>: <%= @task.description %></p>
-<%= link_to t('view.to_index_view'), tasks_path %>
+<div class="card detail_card">
+  <div class="card-header">
+    <%= t('activerecord.attributes.task.name') %>: <%= @task.name %>
+  </div>
+  <div class="card-body">
+    <p class="card-text">
+      <p class="detail_view_top_title"><%= t('activerecord.attributes.task.description') %></p>
+      <p class="detail_view_content"><%= @task.description %></p>
+      <p class="detail_view_title"><%= t('activerecord.attributes.task.expired_at') %></p>
+      <p class="detail_view_content"><%= @task.expired_at.strftime('%Y-%m-%d %H:%M') %></p>
+      <p class="detail_view_title"><%= t('activerecord.attributes.task.status') %></p>
+      <p class="detail_view_content"><%= @task.status %></p>
+      <p class="detail_view_title"><%= t('activerecord.attributes.task.priority') %></p>
+      <p class="detail_view_content"><%= @task.priority %></p>
+  </div>
+</div>
+</div>
+<div class="row">
+<%= link_to t('view.to_index_view'), tasks_path, class: "btn btn-default detail_view_btn" %>
+</div>
+</div>
+<div class="col-md-4"></div>
