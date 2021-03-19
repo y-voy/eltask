@@ -1,6 +1,6 @@
 class Admin::UsersController < ApplicationController
 
-  before_action :admin?
+  before_action :requier_admin
   before_action :set_user, only: [:create, :show, :edit, :update, :destroy]
 
   def index
@@ -48,8 +48,8 @@ class Admin::UsersController < ApplicationController
     @user = User.find(params[:id])
   end
 
-  def admin?
-    redirect_to tasks_path, notice: "管理者以外はアクセスできません" unless current_user.admin
+  def requier_admin
+    redirect_to tasks_path, notice: "管理者以外はアクセスできません" unless current_user.admin?
   end
 
 end
