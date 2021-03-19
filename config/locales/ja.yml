@@ -216,6 +216,7 @@ ja:
     edit: 編集
     destroy: 削除
     search: 検索
+    num_of_task: タスク数
     search_placeholder: タスク名で検索
     sorted_by_expired_at: 終了期限でソートする
     sorted_by_created_at: 登録順でソートする

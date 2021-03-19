@@ -1,7 +1,7 @@
 class Admin::UsersController < ApplicationController
 
-  skip_before_action :login_required
-  # before_action :set_user, only: [:show, :edit, :update, :destroy]
+  before_action :admin?
+  before_action :set_user, only: [:create, :show, :edit, :update, :destroy]
 
   def index
     @users = User.all
@@ -12,7 +12,6 @@ class Admin::UsersController < ApplicationController
   end
 
   def create
-    @user = User.new(user_params)
     if @user.save
       redirect_to admin_user_path(@user), notice: "ユーザー「#{@user.name}」を登録しました。"
     else
@@ -21,15 +20,12 @@ class Admin::UsersController < ApplicationController
   end
 
   def show
-    @user = User.find(params[:id])
   end
 
   def edit
-    @user = User.find(params[:id])
   end
 
   def update
-    @user = User.find(params[:id])
     if @user.update(user_params)
       redirect_to admin_user_path(@user), notice: "ユーザー「#{@user.name}」を更新しました。"
     else
@@ -38,7 +34,6 @@ class Admin::UsersController < ApplicationController
   end
 
   def destroy
-    @user = User.find(params[:id])
     @user.destroy
     redirect_to admin_users_path, notice: "ユーザー「#{@user.name}」を削除しました。"
   end
@@ -51,6 +46,10 @@ class Admin::UsersController < ApplicationController
 
   def set_user
     @user = User.find(params[:id])
+  end
+
+  def admin?
+    redirect_to tasks_path, notice: "管理者以外はアクセスできません" unless current_user.admin
   end
 
 end
