@@ -3,6 +3,7 @@ ja:
     models:
       task: タスク
       user: ユーザー
+      session: セッション
     attributes:
       task:
         name: タスク名
@@ -12,6 +13,16 @@ ja:
         status: ステータス
         priority: 優先順位
       user:
+        id: ID
+        name: 名前
+        email: メールアドレス
+        admin: 管理者権限
+        created_at: 登録日時
+        current_password: 現在のパスワード
+        password: パスワード
+        password_confirmation: 確認用パスワード
+        remember_me: ログインを記憶
+      session:
         id: ID
         name: 名前
         email: メールアドレス

@@ -1,4 +1,7 @@
-<h1>Sign up</h1>
-
-<%= link_to '一覧', admin_users_path %>
+<div class="col-md-4"></div>
+<div class="col-md-4">
+<h4><%= t('view.sign_up') %></h4>
+<%= link_to '一覧', admin_users_path, class: "btn btn-default"  %>
 <%= render 'form' %>
+</div>
+<div class="col-md-4"></div>

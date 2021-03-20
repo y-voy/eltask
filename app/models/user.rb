@@ -12,7 +12,9 @@ class User < ApplicationRecord
   has_many :tasks, dependent: :destroy
 
   def not_destroy_last_admin
-    throw(:abort) if User.where(admin: true).count == 1
+    if self.admin?
+      throw(:abort) if User.where(admin: true).count == 1
+    end
   end
 
 end
