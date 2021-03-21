@@ -6,7 +6,7 @@ FactoryBot.define do
     expired_at { "2021-04-01 00:00:00" }
     status { "未着手" }
     priority { "中" }
-    user
+    association :user
   end
 
   factory :second_task, class: Task do
@@ -15,7 +15,7 @@ FactoryBot.define do
     expired_at { "2021-04-01 00:00:00" }
     status { "着手中" }
     priority { "高" }
-    user
+    association :user
   end
 
   factory :third_task, class: Task do
@@ -24,7 +24,7 @@ FactoryBot.define do
     expired_at { "2021-04-01 00:00:00" }
     status { "未着手" }
     priority { "低" }
-    user
+    association :user
   end
 
   factory :new_task, class: Task do
@@ -33,7 +33,7 @@ FactoryBot.define do
     expired_at { "2021-04-01 00:00:00" }
     status { "未着手" }
     priority { "中" }
-    user
+    association :user
   end
 
 end
