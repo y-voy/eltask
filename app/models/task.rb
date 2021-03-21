@@ -5,7 +5,9 @@ class Task < ApplicationRecord
   validates :priority, presence: true
   validates :expired_at, presence: true
 
-  belongs_to :user
+  belongs_to :user, optional: true
+  has_many :label_relations, dependent: :destroy
+  has_many :labels, through: :label_relations, source: :label
 
   paginates_per 10
 

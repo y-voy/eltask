@@ -34,6 +34,7 @@ class TasksController < ApplicationController
 
   def create
     @task = current_user.tasks.build(task_params)
+    binding.pry
     if @task.save
       redirect_to task_path(@task.id), notice: "作成しました！"
     else
@@ -63,7 +64,7 @@ class TasksController < ApplicationController
   private
 
   def task_params
-    params.require(:task).permit(:name, :description, :expired_at, :status, :priority)
+    params.require(:task).permit(:name, :description, :expired_at, :status, :priority, { label_ids: [] } ).merge(user_id: current_user.id)
   end
 
   def set_task
