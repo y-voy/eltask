@@ -206,16 +206,26 @@ ja:
       short: "%m/%d %H:%M"
     pm: 午後
   view:
+    profile: プロフィール
+    logout: ログアウト
     index_view: タスク一覧
     detail_view: 詳細画面
     edit_view: 編集画面
     search_view: 検索結果
     to_index_view: 一覧に戻る
     new_task: 新規作成
+    user_index: ユーザー一覧
+    sign_up: ユーザー新規登録
+    submit_sign_up: ユーザー新規登録
+    login: ログイン
     detail: 詳細
+    user_detail: ユーザーの詳細
+    user_page: のページ
     edit: 編集
+    user_edit: ユーザーの編集
     destroy: 削除
     search: 検索
+    num_of_task: タスク数
     search_placeholder: タスク名で検索
     sorted_by_expired_at: 終了期限でソートする
     sorted_by_created_at: 登録順でソートする

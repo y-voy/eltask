@@ -12,10 +12,29 @@
   </head>
 
   <body>
-    <div class="container">
-      <div class="col-md-12">
+      <div class="col-md-2"></div>
+      <div class="col-md-8">
+        <nav class="navbar navbar-default">
+        <div class="container">
+        <% if logged_in? %>
+          <a id="user_profile_link_on_tasks_index"><%= link_to t('view.profile'), user_path(current_user.id) %></a>
+          <%= link_to t('view.index_view'), tasks_path %>
+          <%= link_to t('view.logout'), session_path(current_user.id), method: :delete %>
+          <% if current_user.admin? %>
+          <%= link_to t('view.user_index'), admin_users_path %>
+          <% end %>
+        <% else %>
+          <%= link_to t('view.sign_up'), new_user_path %>
+          <%= link_to t('view.login'), new_session_path %>
+        <% end %>
+      </nav>
+        <% flash.each do |key, value| %>
+          <%= content_tag(:div, value, class: "#{key}") %>
+        <% end %>
         <%= yield %>
       </div>
+      </div>
+      <div class="col-md-2"></div>
       <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
       <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
     </div>

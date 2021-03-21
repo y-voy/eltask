@@ -6,24 +6,24 @@ class TasksController < ApplicationController
     if params[:task].present?
       if params[:task][:name].present? && params[:task][:status].present?
         status = params[:task][:status]
-        @tasks = Task.where('name LIKE ?', "%#{params[:task][:name]}%").where(status: Task.statuses[status]).page(params[:page])
+        @tasks = current_user.tasks.where('name LIKE ?', "%#{params[:task][:name]}%").where(status: Task.statuses[status]).page(params[:page])
       elsif params[:task][:name].present?
-        @tasks = Task.where('name LIKE ?', "%#{params[:task][:name]}%").page(params[:page])
+        @tasks = current_user.tasks.where('name LIKE ?', "%#{params[:task][:name]}%").page(params[:page])
       elsif params[:task][:status].present?
         status = params[:task][:status]
-        @tasks = Task.where(status: Task.statuses[status]).page(params[:page])
+        @tasks = current_user.tasks.where(status: Task.statuses[status]).page(params[:page])
       else
-        @tasks = Task.all.order(created_at: :desc).page(params[:page])
+        @tasks = current_user.tasks.all.order(created_at: :desc).page(params[:page])
       end
     else
       if params[:sort_expired]
-        @tasks = Task.all.order(expired_at: :asc).page(params[:page])
+        @tasks = current_user.tasks.all.order(expired_at: :asc).page(params[:page])
       elsif params[:sort_priority]
-        @tasks = Task.all.order(priority: :desc).page(params[:page])
+        @tasks = current_user.tasks.all.order(priority: :desc).page(params[:page])
       elsif params[:sort_status]
-        @tasks = Task.all.order(status: :asc).page(params[:page])
+        @tasks = current_user.tasks.all.order(status: :asc).page(params[:page])
       else
-        @tasks = Task.all.order(created_at: :desc).page(params[:page])
+        @tasks = current_user.tasks.all.order(created_at: :desc).page(params[:page])
       end
     end
   end
@@ -33,7 +33,7 @@ class TasksController < ApplicationController
   end
 
   def create
-    @task = Task.new(task_params)
+    @task = current_user.tasks.build(task_params)
     if @task.save
       redirect_to task_path(@task.id), notice: "作成しました！"
     else
@@ -67,7 +67,7 @@ class TasksController < ApplicationController
   end
 
   def set_task
-    @task = Task.find(params[:id])
+    @task = current_user.tasks.find(params[:id])
   end
 
 end

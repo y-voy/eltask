@@ -2,17 +2,27 @@ require 'rails_helper'
 
 RSpec.describe 'タスク管理機能', type: :system do
 
-  let!(:task) { FactoryBot.create(:task, created_at: Time.current + 1.days, expired_at: Time.current + 3.days, priority: 1) }
-  let!(:second_task) { FactoryBot.create(:second_task, created_at: Time.current + 2.days, expired_at: Time.current + 2.days, priority: 3) }
-  let!(:third_task) { FactoryBot.create(:third_task, created_at: Time.current, expired_at: Time.current + 1.days, priority: 2) }
+  let!(:user_a) { FactoryBot.create(:user, name: "ユーザーA", email: "a@dic.com") }
+  let!(:task) { FactoryBot.create(:task, created_at: Time.current + 1.days, expired_at: Time.current + 3.days, priority: 1, user: user_a) }
+  let!(:second_task) { FactoryBot.create(:second_task, created_at: Time.current + 2.days, expired_at: Time.current + 2.days, priority: 3, user: user_a) }
+  let!(:third_task) { FactoryBot.create(:third_task, created_at: Time.current, expired_at: Time.current + 1.days, priority: 2, user: user_a) }
+
+  before do
+    visit new_session_path
+    fill_in 'Email', with: 'a@dic.com'
+    fill_in 'Password', with: 'password'
+    click_button 'ログイン'
+  end
 
   describe '新規作成機能' do
     before do
       visit new_task_path
-      task = FactoryBot.create(:new_task)
+      task = FactoryBot.create(:new_task, user: user_a)
       fill_in 'タスク名', with: task.name
       fill_in '詳細', with: task.description
       fill_in '終了期限', with: task.expired_at
+      select '未着手', from: "task_status_field"
+      select '中', from: "task_priority_field"
       click_button '登録する'
     end
 
@@ -64,6 +74,7 @@ RSpec.describe 'タスク管理機能', type: :system do
       end
       it '優先順位が高いタスクが一番上に表示される' do
         all('tr td')[6].click_link '詳細'
+        sleep 2
         expect(page).to have_content 'second_test_name'
       end
     end
@@ -83,8 +94,8 @@ RSpec.describe 'タスク管理機能', type: :system do
 
   describe '検索機能' do
     before do
-     FactoryBot.create(:second_task, name: "foo")
-     FactoryBot.create(:task, name: "sample", status: "完了")
+     FactoryBot.create(:second_task, name: "foo", user: user_a)
+     FactoryBot.create(:task, name: "sample", status: "完了", user: user_a)
    end
     context 'タイトルであいまい検索をした場合' do
       it "検索キーワードを含むタスクで絞り込まれる" do

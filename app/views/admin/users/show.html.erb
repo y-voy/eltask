@@ -1,0 +1,53 @@
+<!-- <div class="col-md-3"></div>
+<div class="col-md-6"> -->
+<h4><%= t('view.user_detail') %></h4>
+
+
+<%= link_to '一覧', admin_users_path, class: "btn btn-default"  %>
+<%= link_to '編集', edit_admin_user_path(@user), class: "btn btn-success" %>
+<%= link_to '削除', [:admin, @user], method: :delete, data: { confirm: "ユーザー「#{@user.name}」を削除します。よろしいですか？"}, class: "btn btn-danger" %>
+<div class="row"></div>
+
+<div class="row">
+<div class="card detail_card admin_detail_card">
+  <div class="card-body">
+    <p class="card-text">
+      <p class="detail_view_top_title"><%= User.human_attribute_name(:name) %></p>
+      <p class="detail_view_content"><%= link_to @user.name, [:admin, @user] %></p>
+      <p class="detail_view_title"><%= User.human_attribute_name(:email) %></p>
+      <p class="detail_view_content"><%= @user.email %></p>
+      <p class="detail_view_title"><%= User.human_attribute_name(:admin) %></p>
+      <p class="detail_view_content"><%= @user.admin? ? 'あり' : 'なし' %></p>
+      <p class="detail_view_title"><%= User.human_attribute_name(:created_at) %></p>
+      <p class="detail_view_content"><%= @user.created_at.strftime('%Y-%m-%d %H:%M') %></p>
+  </div>
+</div>
+</div>
+
+<div class="row">
+<div class="panel panel-default admin_tasks_panel">
+  <div class="panel-heading"></div>
+<table class="table">
+  <tr>
+    <th><%= t('activerecord.attributes.task.name') %></th>
+    <th><%= t('activerecord.attributes.task.description') %></th>
+    <th id="sort_created_at"><%= t('activerecord.attributes.task.created_at') %></th>
+    <th id="sort_expired"><%= t('activerecord.attributes.task.expired_at') %></th>
+    <th class="index_status" id="sort_status"><%= t('activerecord.attributes.task.status') %></th>
+    <th class="index_priority" id="sort_priority"><%= t('activerecord.attributes.task.priority') %></th>
+  </tr>
+<% @user.tasks.each do |task| %>
+  <tr>
+    <td><%= task.name.truncate(20) %></td>
+    <td><%= task.description.truncate(30) %></td>
+    <td><%= task.created_at.strftime('%Y-%m-%d %H:%M') %></td>
+    <td><%= task.expired_at.strftime('%Y-%m-%d %H:%M') %></td>
+    <td class="index_status"><%= task.status %></td>
+    <td class="index_priority"><%= task.priority %></td>
+  </tr>
+  <% end %>
+</table>
+</div>
+</div>
+<!-- </div> -->
+<!-- <div class="col-md-3"></div> -->

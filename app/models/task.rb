@@ -1,7 +1,11 @@
 class Task < ApplicationRecord
   validates :name, presence: true, length: { maximum: 30 }
   validates :description, presence: true, length: { maximum: 300 }
+  validates :status, presence: true
+  validates :priority, presence: true
   validates :expired_at, presence: true
+
+  belongs_to :user
 
   paginates_per 10
 

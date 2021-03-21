@@ -1,5 +1,12 @@
 Rails.application.routes.draw do
-  root 'tasks#index'
-  resources :tasks do
+
+  namespace :admin do
+    resources :users
   end
+
+  root 'sessions#new'
+  resources :tasks
+  resources :sessions, only: [:new, :create, :destroy]
+  resources :users, only: [:new, :create, :show]
+
 end
