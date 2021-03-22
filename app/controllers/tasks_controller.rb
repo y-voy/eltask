@@ -5,14 +5,19 @@ class TasksController < ApplicationController
 
   def index
     if params[:task].present?
-      if params[:task][:name].present? && params[:task][:status].present?
+      if params[:task][:name].present? && params[:task][:status].present? && params[:task][:status] != "ステータス"
         status = params[:task][:status]
         @tasks = current_user.tasks.where('name LIKE ?', "%#{params[:task][:name]}%").where(status: Task.statuses[status]).page(params[:page])
-      elsif params[:task][:name].present?
+      elsif params[:task][:name].present? && params[:task][:status] == "ステータス"
         @tasks = current_user.tasks.where('name LIKE ?', "%#{params[:task][:name]}%").page(params[:page])
-      elsif params[:task][:status].present?
+      elsif params[:task][:status].present? && params[:task][:status] != "ステータス"
         status = params[:task][:status]
         @tasks = current_user.tasks.where(status: Task.statuses[status]).page(params[:page])
+      elsif params[:task][:label_id].present? && params[:task][:status] == "ステータス"
+        label = params[:task][:label_id]
+        @labels = LabelRelation.where(label_id: label)
+        task_id = @labels.select('task_id')
+        @tasks = current_user.tasks.where(id: task_id).page(params[:page])
       else
         @tasks = current_user.tasks.all.order(created_at: :desc).page(params[:page])
       end
