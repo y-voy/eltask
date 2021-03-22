@@ -1,6 +1,7 @@
 class TasksController < ApplicationController
 
   before_action :set_task, only: [:show, :edit, :update, :destroy]
+  before_action :set_task_label, only: [:edit]
 
   def index
     if params[:task].present?
@@ -68,6 +69,11 @@ class TasksController < ApplicationController
 
   def set_task
     @task = current_user.tasks.find(params[:id])
+  end
+
+  def set_task_label
+    @task = current_user.tasks.find(params[:id])
+    @labels = @task.labels.all
   end
 
 end

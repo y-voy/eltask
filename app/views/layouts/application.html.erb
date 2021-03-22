@@ -22,6 +22,7 @@
           <%= link_to t('view.logout'), session_path(current_user.id), method: :delete %>
           <% if current_user.admin? %>
           <%= link_to t('view.user_index'), admin_users_path %>
+          <%= link_to t('view.label_index'), admin_labels_path %>
           <% end %>
         <% else %>
           <%= link_to t('view.sign_up'), new_user_path %>

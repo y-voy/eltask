@@ -1,5 +1,5 @@
 50.times do |n|
-  name = Faker::Name.first_name
+  name = Faker::Name.name
   email = Faker::Internet.email
   password = "password"
   User.create!(name: name,
@@ -10,9 +10,23 @@
 end
 
 1.times do |n|
-  User.create!(name: admin,
-               email: admin@dic.com,
+  User.create!(name: "ad",
+               email: "ad@dic.com",
                password: "password",
                admin: true
                )
 end
+
+Label.create!(
+  [
+    {
+      name: "HTML"
+    },
+    {
+      name: "CSS"
+    },
+    {
+      name: "Rails"
+    }
+  ]
+)

@@ -12,14 +12,14 @@ class Task < ApplicationRecord
   paginates_per 10
 
   enum status: {
-    "": 0,
+    "ステータス": 0,
     未着手: 1,
     着手中: 2,
     完了: 3
   }
 
   enum priority: {
-    "--": 0,
+    "優先順位": 0,
     低: 1,
     中: 2,
     高: 3
