@@ -4,11 +4,11 @@
   <div class="input-group">
     <%= f.text_field :name, class: "form-control", id: "name_search_feild", placeholder: t('view.search_placeholder') %>
   </div>
+  <div class="btn-group">
   <div class="dropdown" role="group">
     <%= f.select :status, Task.statuses.keys, {}, class: "btn btn-default dropdown-toggle", id: "status_search_feild" %>
-  </div>
-  <div class="dropdown" role="group">
     <%= f.select :label_id, Label.all.collect { |l| [l.name, l.id] }, include_blank: true, class: "btn btn-default dropdown-toggle", id: "label_search_feild" %>
+  </div>
   </div>
   <%= f.submit t('view.search'), class: "btn btn-default search_btn", id: "search_btn" %>
   <% end %>

@@ -77,8 +77,20 @@ h4 {
 
 .dropdown {
   float: left;
-  margin: 0px 0px 0px 20px;
-  width: 300px;
+  margin: 0px 0px 0px 30px;
+  // width: 200px;
+}
+
+#name_search_feild {
+  width: 200px;
+}
+
+#status_search_feild {
+  margin-left: -100px;
+}
+
+#label_search_feild {
+  // margin-left: 1000px;
 }
 
 .search_btn {
