@@ -14,13 +14,13 @@ end
                )
 end
 
-20.times do |t|
-  Task.create!(name: "task#{t}",
-               description: "task#{t}_description",
+User.all.ids.each do |id|
+  Task.create!(name: "task#{id}",
+               description: "task#{id}_description",
                expired_at: "2021-04-01 00:00:00",
                status: "未着手",
                priority: "中",
-               user_id: t
+               user_id: id
                )
 end
 
