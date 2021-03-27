@@ -50,7 +50,7 @@ RSpec.describe 'ラベル管理機能', type: :system do
         fill_in 'ラベル名', with: 'new_label'
         click_button '登録する'
       end
-      it 'ユーザーの新規登録ができる' do
+      it 'ラベルの新規登録ができる' do
         visit admin_labels_path
         expect(page).to have_content 'new_label'
       end
