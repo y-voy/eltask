@@ -14,7 +14,7 @@ end
                )
 end
 
-1.times do |t|
+10.times do |t|
   Task.create!(name: "task#{t}",
                description: "task#{t}_description",
                expired_at: "2021-04-01 00:00:00",
