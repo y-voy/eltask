@@ -14,12 +14,13 @@ end
                )
 end
 
-10.times do |t|
+20.times do |t|
   Task.create!(name: "task#{t}",
                description: "task#{t}_description",
                expired_at: "2021-04-01 00:00:00",
                status: "未着手",
                priority: "中",
+               user_id: t
                )
 end
 

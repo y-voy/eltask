@@ -25,10 +25,13 @@ RSpec.describe 'ラベル管理機能', type: :system do
     end
 
     context 'ラベル検索をした場合' do
-      it "ラベルに完全一致するタスクが絞り込まれる" do
+      before do
         visit tasks_path
         select(value = "second_label", from: "task_label_id")
         click_button "検索"
+      end
+      it "ラベルに完全一致するタスクが絞り込まれる" do
+        all('tr td')[6].click_link '詳細'
         expect(page).to have_content 'second_test_name'
       end
     end
