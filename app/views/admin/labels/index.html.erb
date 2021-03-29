@@ -1,0 +1,29 @@
+<div class="col-md-4"></div>
+<div class="col-md-4">
+<h1><%= t('view.label_index') %></h1>
+
+<%= link_to '新規登録', new_admin_label_path, class: "btn btn-primary new_task_btn"  %>
+
+<div class="panel panel-default admin-labels-panel">
+  <div class="panel-heading"></div>
+<table class="table">
+  <tr>
+    <th><%= Label.human_attribute_name(:name) %></th>
+  </tr>
+<% @labels.each do |label| %>
+  <tr>
+    <td><%= link_to label.name, [:admin, label] %></td>
+    <td>
+      <%= link_to '編集', edit_admin_label_path(label), class: "btn-sm btn-success" %>
+    </td>
+    <td>
+      <%= link_to '削除', [:admin, label], method: :delete, data: { confirm: "ユーザー「#{label.name}」を削除します。よろしいですか？" }, class: "btn-sm btn-danger" %>
+    </td>
+  </tr>
+  <% end %>
+</table>
+</div>
+<p class="pagination"><%= paginate @labels, class: "pagination" %></p>
+<p class="pagination"><%= page_entries_info @labels, class: "pagination" %></p>
+</div>
+<div class="col-md-4"></div>

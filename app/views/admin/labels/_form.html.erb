@@ -1,0 +1,19 @@
+<% if @label.errors.any? %>
+  <div id="error_explanation">
+    <h2><%= @label.errors.count %><%= t('activerecord.errors.messages.error_counts') %></h2>
+    <ul>
+    <% @label.errors.full_messages.each do |msg| %>
+      <li><%= msg %></li>
+    <% end %>
+    </ul>
+  </div>
+<% end %>
+
+<%= form_with(model: [:admin, @label], local: true) do |f| %>
+<div class="input-group input_new">
+  <div>
+    <%= f.label :name, class: "input-form" %>
+    <%= f.text_field :name, class: "form-control" %>
+  </div>
+<%= f.submit class: "input_btn btn btn-primary" %>
+<% end %>

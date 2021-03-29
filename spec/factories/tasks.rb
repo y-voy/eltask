@@ -7,6 +7,12 @@ FactoryBot.define do
     status { "未着手" }
     priority { "中" }
     association :user
+
+    after(:build) do |task|
+      label = create(:label)
+      task.label_relations << build(:label_relation, task: task, label: label)
+    end
+
   end
 
   factory :second_task, class: Task do
@@ -16,6 +22,12 @@ FactoryBot.define do
     status { "着手中" }
     priority { "高" }
     association :user
+
+    after(:build) do |task|
+      label = create(:second_label)
+      task.label_relations << build(:label_relation, task: task, label: label)
+    end
+
   end
 
   factory :third_task, class: Task do
@@ -25,6 +37,12 @@ FactoryBot.define do
     status { "未着手" }
     priority { "低" }
     association :user
+
+    after(:build) do |task|
+      label = create(:third_label)
+      task.label_relations << build(:label_relation, task: task, label: label)
+    end
+
   end
 
   factory :new_task, class: Task do

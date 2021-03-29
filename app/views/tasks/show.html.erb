@@ -16,6 +16,10 @@
       <p class="detail_view_content"><%= @task.status %></p>
       <p class="detail_view_title"><%= t('activerecord.attributes.task.priority') %></p>
       <p class="detail_view_content"><%= @task.priority %></p>
+      <p class="detail_view_title"><%= t('activerecord.attributes.label.name') %></p>
+      <% @task.labels.each do |label| %>
+      <p class="detail_view_content"><%= label.name %></p>
+      <% end %>
   </div>
 </div>
 </div>

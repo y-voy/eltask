@@ -1,17 +1,23 @@
 class TasksController < ApplicationController
 
   before_action :set_task, only: [:show, :edit, :update, :destroy]
+  before_action :set_task_label, only: [:edit]
 
   def index
     if params[:task].present?
-      if params[:task][:name].present? && params[:task][:status].present?
+      if params[:task][:name].present? && params[:task][:status].present? && params[:task][:status] != "ステータス"
         status = params[:task][:status]
         @tasks = current_user.tasks.where('name LIKE ?', "%#{params[:task][:name]}%").where(status: Task.statuses[status]).page(params[:page])
-      elsif params[:task][:name].present?
+      elsif params[:task][:name].present? && params[:task][:status] == "ステータス"
         @tasks = current_user.tasks.where('name LIKE ?', "%#{params[:task][:name]}%").page(params[:page])
-      elsif params[:task][:status].present?
+      elsif params[:task][:status].present? && params[:task][:status] != "ステータス"
         status = params[:task][:status]
         @tasks = current_user.tasks.where(status: Task.statuses[status]).page(params[:page])
+      elsif params[:task][:label_id].present? && params[:task][:status] == "ステータス"
+        label = params[:task][:label_id]
+        @labels = LabelRelation.where(label_id: label)
+        task_id = @labels.select('task_id')
+        @tasks = current_user.tasks.where(id: task_id).page(params[:page])
       else
         @tasks = current_user.tasks.all.order(created_at: :desc).page(params[:page])
       end
@@ -63,11 +69,16 @@ class TasksController < ApplicationController
   private
 
   def task_params
-    params.require(:task).permit(:name, :description, :expired_at, :status, :priority)
+    params.require(:task).permit(:name, :description, :expired_at, :status, :priority, { label_ids: [] } ).merge(user_id: current_user.id)
   end
 
   def set_task
     @task = current_user.tasks.find(params[:id])
+  end
+
+  def set_task_label
+    @task = current_user.tasks.find(params[:id])
+    @labels = @task.labels.all
   end
 
 end

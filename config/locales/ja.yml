@@ -215,6 +215,7 @@ ja:
     to_index_view: 一覧に戻る
     new_task: 新規作成
     user_index: ユーザー一覧
+    label_index: ラベル一覧
     sign_up: ユーザー新規登録
     submit_sign_up: ユーザー新規登録
     login: ログイン
